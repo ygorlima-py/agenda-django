@@ -16,5 +16,14 @@ pip intall django
 1.5 Criar projeto
 -django-admin startproject nome_do_projeto .
 
-1.6 
+1.6 Configurar chave SSH windows
+- Gere a chve usando o powershell
+ssh-keygen -f $env:USERPROFILE\.ssh\qualquercoisa_rsa -t rsa -b 4096
+
+- Gere a chave usando o gitbash
+ssh-keygen -f ~/.ssh/qualquercoisa_rsa -t rsa -b 4096
+
+- Autorize no gitbash (powershell não funciona)
+$ eval $(ssh-agent) -> gera um Agent pid numero
+$ ssh-add ~/.ssh/qualquercoisa_rsa 
 
