@@ -31,3 +31,7 @@ $ ssh-add ~/.ssh/qualquercoisa_rsa
 
 python manage.py createsuperuser
 python manage.py changepassword USERNAME
+
+3- Migrando a base de dados do Django
+python manage.py makemigrations
+python manage.py migrate
