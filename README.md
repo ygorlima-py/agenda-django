@@ -27,3 +27,7 @@ ssh-keygen -f ~/.ssh/qualquercoisa_rsa -t rsa -b 4096
 $ eval $(ssh-agent) -> gera um Agent pid numero
 $ ssh-add ~/.ssh/qualquercoisa_rsa 
 
+2-Criando e modificando senha de superusuario em admin
+
+python manage.py createsuperuser
+python manage.py changepassword USERNAME
