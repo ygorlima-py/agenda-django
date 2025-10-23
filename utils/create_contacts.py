@@ -39,9 +39,9 @@ if __name__ == '__main__':
     for i in range(NUMBER_OF_OBJECS):
         profile = fake.profile()
         email = profile['mail']
-        first_name, last_name = profile['name'].split(' ', 1)
+        first_name, last_name = profile['name'].split(' ', 1) # type: ignore
         phone = fake.phone_number()
-        created_date: datetime = fake.date_this_year()
+        created_date = fake.date_this_year() 
         description = fake.text(max_nb_chars=100)
         category = choice(django_categories)
 
