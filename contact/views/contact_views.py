@@ -9,6 +9,7 @@ def index(request):
 
     context = dict(
         contacts=contacts,
+        site_title='Contatos - '
     )
     return render(
         request,
@@ -21,10 +22,14 @@ def index(request):
 def contact(request, contact_id):
     single_contact = Contact.objects.filter(pk=contact_id, show=True).first()
 
+    site_title = f'{single_contact.first_name} {single_contact.last_name} - ' # type: ignore
     if single_contact is None:
         raise Http404()
     
-    context = {'contact': single_contact}
+    context = {
+        'contact': single_contact,
+        'site_title': site_title
+        }
 
     return render(
         request,
