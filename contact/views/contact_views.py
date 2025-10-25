@@ -1,15 +1,19 @@
 from django.shortcuts import render, redirect
 from django.http import Http404
 from django.db.models import Q
+from django.core.paginator import Paginator
 from contact.models import Contact
 
 # Create your views here.
 def index(request):
-    contacts = Contact.objects.filter(show=True).order_by('-id')[0:10]
-
+    page_obj = Contact.objects.filter(show=True).order_by('-id')
+    
+    paginator = Paginator(page_obj, 25)  # Show 25 contacts per page.
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
 
     context = dict(
-        contacts=contacts,
+        page_obj=page_obj,
         site_title='Contatos - '
     )
     return render(
@@ -24,7 +28,7 @@ def search(request):
     if search_value == ' ':
         return redirect('contact:index')
 
-    contacts = Contact.objects\
+    page_obj = Contact.objects\
         .filter(show=True)\
         .filter(
                 Q(first_name__icontains=search_value) |
@@ -34,9 +38,12 @@ def search(request):
             )\
         .order_by('-id')
 
+    paginator = Paginator(page_obj, 25)  # Show 25 contacts per page.
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
 
     context = dict(
-        contacts=contacts,
+        page_obj=page_obj,
         site_title='Search - '
     )
     return render(
@@ -47,7 +54,7 @@ def search(request):
 
 def contact(request, contact_id):
     single_contact = Contact.objects.filter(pk=contact_id, show=True).first()
-
+    
     site_title = f'{single_contact.first_name} {single_contact.last_name} - ' # type: ignore
     if single_contact is None:
         raise Http404()
