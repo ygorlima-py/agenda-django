@@ -31,6 +31,9 @@ class ContactForm(forms.ModelForm):
             'first_name',
             'last_name',
             'phone',
+            'email',
+            'description',
+            'category',
         )
 
         # Widgetes são tipos pra definir o tipo de campo que vai 
