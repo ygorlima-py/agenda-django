@@ -1,7 +1,7 @@
 from django.core.exceptions import ValidationError
 from django import forms
 from contact.models import Contact
-
+from django.contrib.auth.forms import UserCreationForm
 
 class ContactForm(forms.ModelForm):
     picture = forms.ImageField(
@@ -39,3 +39,6 @@ class ContactForm(forms.ModelForm):
             
 
         return super().clean()
+
+class RegisterForm(UserCreationForm):
+    ...
