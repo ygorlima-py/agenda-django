@@ -5,22 +5,18 @@
         <h2>Contact</h2>
 
         <form action="/contact/create/" method="post" enctype="multipart/form-data">     
+            
             {% csrf_token %}
             
             <div class="form-content">
+                {% for field in form %}
                 <div class="form-group">
-                    <label for="id_first_name">FIRST NAME</label>
-                    <input type="text" name="first_name" maxlength="255" id="id_first_name">
+                    <label for="{{field.id_for_label}}">{{field.label}}</label>
+                    {{field}}
                 </div>
+                {% endfor %}
             </div>
-
-            <div class="form-content">
-                <div class="form-group">
-                    <label for="id_last_name">LAST NAME</label>
-                    <input type="text" name="last_name" maxlength="255" id="id_last_name">
-                </div>
-            </div>
-
+            
             <div class="form-content">
                 <div class="form-group">
                     <button class="btn" type='submit'>Send</button>
