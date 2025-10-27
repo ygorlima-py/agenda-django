@@ -314,8 +314,6 @@ svg {
     transition: filter var(--transition-fast) ease-in-out;
 }
 
-
-
 .contact-links {
     margin-block: calc(var(--small-font-size) * 2);
     display: flex;
@@ -336,3 +334,22 @@ svg {
     filter: brightness(80%);
     box-shadow: 0 0 5px var(--link-dark-color);
 }
+
+.image-content {
+    border: 2px dashed rgb(3, 48, 76);
+    width: 25rem;
+    height: 31rem;
+    border-radius: 10%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+}
+
+img {
+    width: 24rem;
+    height: 30rem;
+    border-radius: 10%;
+}
+

@@ -8,7 +8,7 @@ def create(request):
 
     if request.method == 'POST':
         
-        form = ContactForm(request.POST)
+        form = ContactForm(request.POST, request.FILES)
         
         context = dict(
             form=form,
@@ -51,7 +51,7 @@ def update(request, contact_id):
 
         # 4) Cria o ModelForm já vinculado à instância existente (instance=contact)
         #    Isso faz o form executar UPDATE nesse contato (e não criar outro)
-        form = ContactForm(request.POST, instance=contact)
+        form = ContactForm(request.POST, request.FILES, instance=contact)
         
         # 5) Contexto que será passado ao template (form + action do form)
         context = dict(
