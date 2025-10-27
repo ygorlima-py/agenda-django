@@ -294,6 +294,15 @@ svg {
     font-size: var(--smaller-font-size);
 }
 
+.btn-link {
+    font-size: var(--small-font-size);
+    text-decoration: none;
+    font-weight: bold;
+    padding: 1rem;
+    display: block;
+    line-height: var(--small-font-size);
+}
+
 .btn {
     background-color: var(--link-dark-color);
     color: var(--clr-white);
@@ -303,6 +312,19 @@ svg {
     border-radius: var(--default-border-radius);
     cursor: pointer;
     transition: filter var(--transition-fast) ease-in-out;
+}
+
+
+
+.contact-links {
+    margin-block: calc(var(--small-font-size) * 2);
+    display: flex;
+    align-items: center;
+    gap: 0 var(--spacing);
+}
+
+.btn-delete {
+    background: tomato;
 }
 
 .btn:hover {
