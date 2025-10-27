@@ -4,9 +4,16 @@ from django.db.models import Q
 from django.core.paginator import Paginator
 from contact.models import Contact
 
-
 def create(request):
 
+    if request.method == 'POST':
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+
+        print(first_name, last_name, request.method)
+
+    print()
+    print(request.method)
     context = dict(
     )
 
