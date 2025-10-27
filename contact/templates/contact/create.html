@@ -4,7 +4,7 @@
     <div class="form-wrapper">
         <h2>Contact</h2>
 
-        <form action="/contact/create/" method="post" enctype="multipart/form-data">     
+        <form action="{{form_action}}" method="post" enctype="multipart/form-data">     
             
             {% csrf_token %}
             
