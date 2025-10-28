@@ -3,7 +3,7 @@ from django.contrib import messages, auth
 from contact.forms import RegisterForm, RegisterUpdateForm
 from django.contrib.auth.forms import AuthenticationForm
 
-# Rota para o usuário se cadastrar na plataforma
+""" Rota para o usuário se cadastrar na plataforma """
 def register(request):
     form = RegisterForm()
 
@@ -26,10 +26,13 @@ def register(request):
     )
 
 
-# Rota para atualizar dados do usuário
+""" Rota para atualizar dados do usuário """
 def user_update(request):
-    form = RegisterUpdateForm(instance=request.user)
 
+    # Cria uma instância form do objeto RegisterUpdateForm, request.user é o usuário logado
+    form = RegisterUpdateForm(instance=request.user) 
+
+    # Verifica se a requisição é diferente de POST, se verdadeiro reenderiza a pagina para atualizar
     if request.method != 'POST':
         
         
@@ -39,21 +42,26 @@ def user_update(request):
             {'form':form}
         )
 
+    # Adiciona no banco os dados enviados pelo usuário usando a instância de dados do usário
     form = RegisterUpdateForm(data=request.POST, instance=request.user)
 
+    # Faz a validação usando os métodos clean da classe RegisterUpdateForm
     if not form.is_valid():
+        
+        # Se o formulário não estiver com valores validos reenderiza com os erros adicionados pelos métodos clean da classe RegisterUpdateForm
         return render(
             request,
             'contact/update.html',
             {'form':form}
         )
     
+    # Se forem validados, salva no banco de dados, mostra menssagem de sucesso e redireciona para para os dados atualizados
     form.save()
     messages.success(request, 'Usuário atualizado com sucesso!')
     return redirect('contact:user_update')
 
 
-# Rota para o usuário logar
+""" Rota para o usuário logar """
 def login_view(request):
     form = AuthenticationForm(request)
 
@@ -79,7 +87,7 @@ def login_view(request):
     )
 
 
-# Rota para deslogar o usuário
+""" Rota para deslogar o usuário """
 def logout_view(request):
     auth.logout(request)
     return redirect('contact:login')

@@ -135,8 +135,8 @@ class RegisterUpdateForm(forms.ModelForm):
         return user
     
     def clean(self):
-        password1 = self.cleaned_data.get('password1')
-        password2 = self.cleaned_data.get('password2')
+        password1 = self.cleaned_data.get('password1') 
+        password2 = self.cleaned_data.get('password2') 
 
         if password1 or password2:
 
@@ -149,12 +149,12 @@ class RegisterUpdateForm(forms.ModelForm):
         return super().clean()
 
     def clean_email(self):
-        email = self.cleaned_data.get('email')
-        current_email = self.instance.email
+        email = self.cleaned_data.get('email') # Email digitado
+        current_email = self.instance.email  # Email atual
 
         if current_email != email:
-            if User.objects.filter(email=email).exists():
-                self.add_error(
+            if User.objects.filter(email=email).exists(): # Verifica se ja existe esse email cadastrado no banco
+                self.add_error( # Adicionando erros aos campos
                     'email',
                     ValidationError('Já existe este e-mail', code='invalid')
                 )
@@ -166,9 +166,9 @@ class RegisterUpdateForm(forms.ModelForm):
 
         if password1:
             try:
-                password_validation.validate_password(password1)
+                password_validation.validate_password(password1) # Validador de senha do Django
 
-            except ValidationError as errors:
+            except ValidationError as errors: # Se não passar adiciona erros aos campos
                 self.add_error(
                     'password1',
                     ValidationError(errors)

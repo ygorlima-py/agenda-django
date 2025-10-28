@@ -12,6 +12,7 @@ urlpatterns = [
     path('search/', views.search, name='search'),
     path('', views.index, name='index'),
 
+    # User
     path('user/register/', views.register, name='register'),
     path('user/login/', views.login_view, name='login'),
     path('user/logout/', views.logout_view, name='logout'),
