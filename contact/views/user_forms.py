@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages, auth
-from contact.forms import RegisterForm
+from contact.forms import RegisterForm, RegisterUpdateForm
 from django.contrib.auth.forms import AuthenticationForm
 
 # Rota para o usuário se cadastrar na plataforma
@@ -24,6 +24,34 @@ def register(request):
             'form':form,
         }
     )
+
+
+# Rota para atualizar dados do usuário
+def user_update(request):
+    form = RegisterUpdateForm(instance=request.user)
+
+    if request.method != 'POST':
+        
+        
+        return render(
+            request,
+            'contact/update.html',
+            {'form':form}
+        )
+
+    form = RegisterUpdateForm(data=request.POST, instance=request.user)
+
+    if not form.is_valid():
+        return render(
+            request,
+            'contact/update.html',
+            {'form':form}
+        )
+    
+    form.save()
+    messages.success(request, 'Usuário atualizado com sucesso!')
+    return redirect('contact:user_update')
+
 
 # Rota para o usuário logar
 def login_view(request):
