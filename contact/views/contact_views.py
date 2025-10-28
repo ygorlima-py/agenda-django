@@ -4,6 +4,7 @@ from django.db.models import Q
 from django.core.paginator import Paginator
 from contact.models import Contact
 
+
 # Create your views here.
 def index(request):
     page_obj = Contact.objects.filter(show=True).order_by('-id')

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages, auth
 from contact.forms import RegisterForm, RegisterUpdateForm
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.decorators import login_required
 
 """ Rota para o usuário se cadastrar na plataforma """
 def register(request):
@@ -27,6 +28,7 @@ def register(request):
 
 
 """ Rota para atualizar dados do usuário """
+@login_required(login_url='contact:login')
 def user_update(request):
 
     # Cria uma instância form do objeto RegisterUpdateForm, request.user é o usuário logado
@@ -87,7 +89,11 @@ def login_view(request):
     )
 
 
-""" Rota para deslogar o usuário """
+""" Rota para deslogar o usuário
+    @login_required(login_url='contact:login') é um decorator que diz para
+    aquela view que só poderar ser acessada se o usuário estiver logado
+"""
+@login_required(login_url='contact:login')
 def logout_view(request):
     auth.logout(request)
     return redirect('contact:login')
