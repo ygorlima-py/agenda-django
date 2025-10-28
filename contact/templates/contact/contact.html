@@ -19,10 +19,11 @@
             <img src="{{contact.picture.url}}" alt="Imagem de perfil {{contact.first_name}}">
         </p>
         {% else %}
-            <p>Adicione sua imagem aqui<p>
+            <p>Contato sem imagem<p>
         {% endif %}
     </div>
 
+    {% if user == contact.owner %}
     <div class="contact-links">
         <a class='btn btn-link' href="{% url "contact:update" contact.id %}">UPDATE</a>
     
@@ -36,7 +37,8 @@
                 <button class="btn btn-link btn-delete" type='submit'>DELETE</button>            
             {% endif %}
         </form>
-
     </div>
+    {% endif %}
+
 </div>
 {% endblock content %}
