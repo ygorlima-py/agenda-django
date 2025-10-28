@@ -19,9 +19,10 @@ def create(request):
 
         print(context)
 
-        if form.is_valid():
-            print('Formulario Válido')
-            contact = form.save()
+        if form.is_valid():        
+            contact = form.save(commit=False) # Grarante que eu não salve na base de dados ainda
+            contact.owner = request.user # Informo para contact.owner que esse contato pertence a esse usuário
+            contact.save()
             return redirect('contact:update', contact_id=contact.pk )
 
         return render(
@@ -42,8 +43,11 @@ def create(request):
 
 @login_required(login_url='contact:login')
 def update(request, contact_id):
-    # 1) Busca o contato pelo id; se não existir (ou show=False), retorna 404
-    contact = get_object_or_404(Contact, pk=contact_id, show=True)
+
+    print('usuário logado: ', request.user)
+
+    # 1) Busca o contato pelo id; se não existir (ou show=False), ou se o usuário não for o dono do contato retorna 404
+    contact = get_object_or_404(Contact, pk=contact_id, show=True, owner=request.user)
 
     # 2) Monta a URL de action do form para essa própria view de update
     form_action = reverse('contact:update', args=(contact_id,))
@@ -95,7 +99,7 @@ def update(request, contact_id):
 @login_required(login_url='contact:login')
 def delete(request, contact_id):
     # 1) Busca o contato pelo id; se não existir (ou show=False), retorna 404
-    contact = get_object_or_404(Contact, pk=contact_id, show=True)
+    contact = get_object_or_404(Contact, pk=contact_id, show=True, owner=request.user)
 
     confirmation = request.POST.get('confirmation', 'no')
     print('confirmation', confirmation)
