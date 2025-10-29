@@ -90,11 +90,11 @@ git pull agendarepo main
 ```
 sudo -u postgres psql
 
-postgres=# create role usuario_agenda with login superuser createdb createrole password 'senha_usuario_agenda';
+postgres=# create role usuario_agenda_django with login superuser createdb createrole password 'senha_usuario_agenda_django';
 CREATE ROLE
-postgres=# create database projeto_agenda with owner usuario_agenda;
+postgres=# create database projeto_agenda_django with owner usuario_agenda_django;
 CREATE DATABASE
-postgres=# grant all privileges on database projeto_agenda to usuario_agenda;
+postgres=# grant all privileges on database projeto_agenda_django to usuario_agenda_django;
 GRANT
 postgres=# \q
 
